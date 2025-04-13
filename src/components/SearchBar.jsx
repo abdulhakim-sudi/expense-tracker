@@ -1,10 +1,37 @@
-// src/components/SearchBar.jsx
-import React from 'react';
+// src/components/ExpenseTable.jsx
+import React, { useState } from 'react';
+import SearchBar from './SearchBar';
 
-const SearchBar = () => {
+const ExpenseTable = ({ expenses }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredExpenses = expenses.filter(expense => 
+    expense.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <input type="text" placeholder="Search expenses..." />
+    <div>
+      <SearchBar onSearch={(term) => setSearchTerm(term)} />
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredExpenses.map((expense, index) => (
+            <tr key={index}>
+              <td>{expense.name}</td>
+              <td>{expense.amount}</td>
+              <td>Delete</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
-export default SearchBar;
+export default ExpenseTable;
