@@ -1,7 +1,7 @@
 // src/components/ExpenseTable.jsx
 import React from 'react';
 
-const ExpenseTable = () => {
+const ExpenseTable = ({ expenses }) => {
   return (
     <table>
       <thead>
@@ -12,11 +12,13 @@ const ExpenseTable = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Sample Expense</td>
-          <td>$100</td>
-          <td>Delete</td>
-        </tr>
+        {expenses.map((expense, index) => (
+          <tr key={index}>
+            <td>{expense.name}</td>
+            <td>{expense.amount}</td>
+            <td>Delete</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
